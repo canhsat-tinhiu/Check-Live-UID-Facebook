@@ -1,0 +1,461 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-1796534654568588"
+        crossorigin="anonymous"></script>
+    <meta name="google-adsense-account" content="ca-pub-1796534654568588">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>What is my 2FA?</title>
+    <link rel="shortcut icon" href="https://bongdoll.com/files/verified.png">
+
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', system-ui, sans-serif;
+        }
+
+        /* Navbar */
+        .navbar {
+            width: 1500px;
+            /* Đặt chiều rộng của navbar là 100% trừ đi 30px (15px cho mỗi bên) */
+            background: white;
+            padding: 1rem;
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+            border-radius: 12px;
+            /* Chia logo và menu icon ra 2 bên */
+            align-items: center;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+            margin: 30px auto 0px auto;
+            /* Đặt margin-top là 15px và margin-bottom là 20px */
+        }
+
+
+        /* Đảm bảo nav-container có position relative */
+        .nav-container {
+            max-width: 1300px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            position: relative;
+            padding: 0 3rem 0 1rem;
+
+            /* Thêm padding bên phải để tránh text đè lên menu */
+        }
+
+        /* Thêm chữ bên trái */
+        .nav-brand {
+            font-size: 1.5rem;
+            font-weight: bold;
+            color: #333;
+        }
+
+        /* Menu links mặc định cho desktop */
+        .nav-links {
+            display: flex;
+            /* Mặc định hiển thị ngang trên desktop */
+            gap: 1rem;
+            align-items: center;
+        }
+
+        .nav-links a {
+            color: #333;
+            text-decoration: none;
+            padding: 0.5rem 1rem;
+            border-radius: 6px;
+            transition: background-color 0.2s;
+        }
+
+        .nav-links a:hover {
+            background-color: #f5f5f5;
+        }
+
+        /* Menu toggle mặc định ẩn trên desktop */
+        .menu-toggle {
+            display: block;
+        }
+
+        /* Thiết lập menu-toggle thành hình vuông */
+        .menu-toggle {
+            display: none;
+            width: 40px;
+            /* Kích thước cố định */
+            height: 40px;
+            /* Kích thước cố định */
+            background: none;
+            border: none;
+            padding: 8px;
+            cursor: pointer;
+            z-index: 1001;
+            position: absolute;
+            /* Thêm vào */
+            right: 1rem;
+            /* Dịch sang phải */
+            top: 50%;
+            /* Căn giữa theo chiều dọc */
+            transform: translateY(-50%);
+            /* Căn giữa theo chiều dọc */
+        }
+
+        .navbar .logo {
+            font-size: 1.5rem;
+            color: #333;
+            font-weight: bold;
+            margin-right: auto;
+            /* Đảm bảo logo nằm bên trái */
+        }
+
+        .navbar-toggler-icon {
+            display: none;
+
+            background-image: url('data:image/svg+xml;base64,...');
+            /* Thay thế bằng icon SVG */
+            width: 100%;
+            /* Kích thước của icon khớp với nút */
+            height: 100%;
+            background-size: contain;
+            /* Đảm bảo icon hiển thị đầy đủ */
+            background-repeat: no-repeat;
+        }
+
+        .menu-icon {
+            width: 100%;
+            /* Sử dụng 100% kích thước của parent */
+            height: 100%;
+            /* Sử dụng 100% kích thước của parent */
+            color: #333;
+        }
+
+        /* Điều chỉnh vị trí của nav-links khi hiển thị trên mobile */
+        .nav-links.active {
+            display: block;
+            position: absolute;
+            top: 100%;
+            right: 0;
+            /* Căn phải */
+            width: 200px;
+            /* Thêm width cố định cho menu */
+            background: white;
+            padding: 1rem;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            border: 1px solid rgba(0, 0, 0, 0.2);
+            border-radius: 12px;
+            z-index: 1001;
+        }
+
+
+        .navbar-collapse {
+            display: flex;
+            justify-content: flex-end;
+        }
+
+        .navbar-nav {
+            list-style: none;
+            margin: 0;
+            padding: 0;
+            display: flex;
+        }
+
+        .nav-item {
+            margin: 0 10px;
+        }
+
+
+
+
+
+        /* Đặt bố cục theo chiều dọc */
+        body {
+            background-color: #f4f7fc;
+
+            margin: 0;
+            padding: 0;
+            display: flex;
+            flex-direction: column;
+            /* Sắp xếp các phần tử theo chiều dọc */
+            min-height: 100vh;
+            /* Đảm bảo toàn màn hình */
+            font-family: Arial, sans-serif;
+        }
+
+        /* Container styles */
+        .container {
+            width: 1500px;
+            margin: 20px auto 0 auto;
+            /* Thêm margin-top để đẩy container xuống */
+            background: white;
+            border-radius: 16px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            padding: 1rem;
+
+        }
+
+        h1 {
+            color: #4A90E2;
+            margin-bottom: 20px;
+        }
+
+        label {
+            font-size: 14px;
+            color: #333;
+            display: block;
+            margin-bottom: 10px;
+            text-align: left;
+        }
+
+        textarea {
+            width: 100%;
+            padding: 15px;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            font-size: 15px;
+            margin-bottom: 20px;
+            height: 200px;
+            box-sizing: border-box;
+            font-family: Arial, sans-serif;
+        }
+
+        button {
+            background-color: #4A90E2;
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 4px;
+            font-size: 16px;
+            cursor: pointer;
+            width: 160px;
+        }
+
+        button:hover {
+            background-color: #2A6D8C;
+        }
+
+        .otp-code {
+            margin-top: 50px;
+            text-align: left;
+        }
+
+        .otp-code textarea {
+            height: auto;
+            min-height: 200px;
+            width: 100%;
+            padding: 15px;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            font-size: 15px;
+            box-sizing: border-box;
+            font-family: Arial, sans-serif;
+            color: #4A90E2;
+            text-align: left;
+        }
+
+        .copy-button {
+            background-color: #4A90E2;
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 4px;
+            font-size: 16px;
+            cursor: pointer;
+            margin-top: 10px;
+            width: 160px;
+        }
+
+        .copy-button:hover {
+            background-color: #2A6D8C;
+        }
+
+        .footer {
+            margin-top: 20px;
+            font-size: 12px;
+            color: #888;
+        }
+
+        .clear-button {
+            background-color: #E74C3C;
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 4px;
+            font-size: 16px;
+            cursor: pointer;
+            margin-top: 10px;
+            width: 160px;
+        }
+
+        .clear-button:hover {
+            background-color: #C0392B;
+        }
+
+
+
+
+        /* Media query cho mobile */
+        @media (max-width: 767px) {
+
+            /* Navbar */
+            .navbar {
+                width: calc(100% - 30px);
+                /* Đặt chiều rộng của navbar là 100% trừ đi 30px (15px cho mỗi bên) */
+                background: white;
+                padding: 1rem;
+                position: sticky;
+                top: 0;
+                z-index: 1000;
+                border-radius: 12px;
+                /* Chia logo và menu icon ra 2 bên */
+                align-items: center;
+                box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+                margin: 15px;
+                /* Đặt khoảng cách 15px từ tất cả các viền màn hình */
+            }
+
+
+            /* Logo "ducky" bên trái */
+            .navbar .logo {
+                font-size: 1.5rem;
+                color: #333;
+                font-weight: bold;
+            }
+
+            /* Icon menu bên phải */
+            .menu-toggle {
+                display: block;
+                width: 35px;
+                height: 35px;
+                background: none;
+                border: none;
+                cursor: pointer;
+            }
+
+            .menu-toggle svg {
+                width: 100%;
+                height: 100%;
+            }
+
+            /* Menu links ẩn mặc định trên mobile */
+            .nav-links {
+                display: none;
+            }
+
+            /* Hiển thị menu khi active */
+            .nav-links.active {
+                display: flex;
+                flex-direction: column;
+                position: absolute;
+                top: 100%;
+                right: 0;
+                width: 100%;
+                background: white;
+                padding: 1rem;
+                box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+                border: 1px solid rgba(0, 0, 0, 0.2);
+                border-radius: 12px;
+                z-index: 1001;
+            }
+
+            .nav-links.active a {
+                padding: 1rem;
+                text-align: center;
+            }
+
+            .nav-links.active a:last-child {
+                border-bottom: none;
+            }
+
+            /* Container styles */
+            .container {
+                width: calc(100% - 30px);
+                /* Đặt chiều rộng của container là 100% trừ đi 30px (15px cho mỗi bên) */
+                margin: 0 auto;
+                /* Căn giữa và không cần margin-top */
+                background: white;
+                border-radius: 16px;
+                box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+                padding: 1rem;
+            }
+
+        }
+    </style>
+</head>
+
+<body>
+    <nav class="navbar">
+        <div class="nav-container">
+            <!-- Chữ bên trái -->
+            <div class="nav-brand">
+                Ducky
+            </div>
+            <!-- Menu icon (hiển thị trên điện thoại) -->
+            <button class="menu-toggle" id="menuToggle" aria-label="Toggle navigation">
+                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                    stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="menu-icon">
+                    <line x1="3" y1="6" x2="21" y2="6"></line>
+                    <line x1="3" y1="12" x2="21" y2="12"></line>
+                    <line x1="3" y1="18" x2="21" y2="18"></line>
+                </svg>
+            </button>
+            <!-- Liên kết điều hướng -->
+            <div class="nav-links" id="navLinks">
+                <a href="#home">Home</a>
+                <a href="https://www.whatismy2fa.com/">Whatismy2fa.com</a>
+                <a href="checkliveuid.html">Check Live UID Facebook</a>
+
+                <a href="#contact">Contact</a>
+            </div>
+        </div>
+    </nav>
+    <div class="container">
+        <h1>What is my 2FA?</h1>
+        <form method="POST">
+            <label for="secret_keys"><strong>* 2FA Secret</strong> Get code for 2-factor authentication easiest - Please
+                store your 2FA secret safely</label>
+            <textarea id="secret_keys" name="secret_keys" required
+                placeholder="Enter secret key here, one key per line">{{ secrets }}</textarea>
+            <button type="submit">Submit</button>
+        </form>
+
+        <div class="otp-code">
+            <label for="otp_codes"><strong>* 2FA Code</strong> 2-step verification code</label>
+            <textarea id="otp_codes" readonly placeholder="OTP code will be displayed here">{{ otp_codes }}</textarea>
+        </div>
+
+        <button class="copy-button" onclick="copyOTP()">Copy</button>
+        <button class="clear-button" onclick="clearOTP()">Delete</button>
+    </div>
+
+
+    <script>
+        function copyOTP() {
+            var otpText = document.getElementById("otp_codes");
+            otpText.select();
+            otpText.setSelectionRange(0, 99999);
+
+            document.execCommand("copy");
+
+            alert("OTP copied");
+        }
+
+        function clearOTP() {
+            var otpText = document.getElementById("otp_codes");
+            var secretKeysText = document.getElementById("secret_keys");
+
+            otpText.value = "";
+            secretKeysText.value = "";
+        }
+        document.getElementById("menuToggle").addEventListener("click", function () {
+            const navLinks = document.getElementById("navLinks");
+            navLinks.classList.toggle("active");
+        });
+
+    </script>
+
+</body>
+
+</html>

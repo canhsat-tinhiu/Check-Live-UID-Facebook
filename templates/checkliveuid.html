@@ -1,0 +1,607 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Check Live Facebook UID</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', system-ui, sans-serif;
+        }
+
+        /* Navbar styles */
+        .navbar {
+
+            align-items: center;
+
+            max-width: 1500px;
+            background: white;
+            padding: 1rem;
+            border-radius: 12px;
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+            margin: 0 auto 20px auto;
+            /* Đưa toàn bộ navbar ra giữa màn hình */
+        }
+
+        /* Đảm bảo nav-container có position relative */
+        .nav-container {
+            max-width: 1500px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            position: relative;
+            padding: 0 3rem 0 1rem;
+            /* Thêm padding bên phải để tránh text đè lên menu */
+        }
+
+        /* Thêm chữ bên trái */
+        .nav-brand {
+            font-size: 1.5rem;
+            font-weight: bold;
+            color: #333;
+        }
+
+        /* Menu links mặc định cho desktop */
+        .nav-links {
+            display: flex;
+            /* Mặc định hiển thị ngang trên desktop */
+            gap: 1rem;
+            align-items: center;
+        }
+
+        .nav-links a {
+            color: #333;
+            text-decoration: none;
+            padding: 0.5rem 1rem;
+            border-radius: 6px;
+            transition: background-color 0.2s;
+        }
+
+        .nav-links a:hover {
+            background-color: #f5f5f5;
+        }
+
+        /* Menu toggle mặc định ẩn trên desktop */
+        .menu-toggle {
+            display: block;
+        }
+
+        /* Thiết lập menu-toggle thành hình vuông */
+        .menu-toggle {
+            display: none;
+            width: 40px;
+            /* Kích thước cố định */
+            height: 40px;
+            /* Kích thước cố định */
+            background: none;
+            border: none;
+            padding: 8px;
+            cursor: pointer;
+            z-index: 1001;
+            position: absolute;
+            /* Thêm vào */
+            right: 1rem;
+            /* Dịch sang phải */
+            top: 50%;
+            /* Căn giữa theo chiều dọc */
+            transform: translateY(-50%);
+            /* Căn giữa theo chiều dọc */
+        }
+
+
+        .navbar-toggler-icon {
+            display: none;
+
+            background-image: url('data:image/svg+xml;base64,...');
+            /* Thay thế bằng icon SVG */
+            width: 100%;
+            /* Kích thước của icon khớp với nút */
+            height: 100%;
+            background-size: contain;
+            /* Đảm bảo icon hiển thị đầy đủ */
+            background-repeat: no-repeat;
+        }
+
+        .menu-icon {
+            width: 100%;
+            /* Sử dụng 100% kích thước của parent */
+            height: 100%;
+            /* Sử dụng 100% kích thước của parent */
+            color: #333;
+        }
+
+
+        /* Điều chỉnh vị trí của nav-links khi hiển thị trên mobile */
+        .nav-links.active {
+            display: block;
+            position: absolute;
+            top: 100%;
+            right: 0;
+            /* Căn phải */
+            width: 200px;
+            /* Thêm width cố định cho menu */
+            background: white;
+            padding: 1rem;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            border: 1px solid rgba(0, 0, 0, 0.2);
+            border-radius: 12px;
+            z-index: 1001;
+        }
+
+
+
+        .navbar-collapse {
+            display: flex;
+            justify-content: flex-end;
+        }
+
+        .navbar-nav {
+            list-style: none;
+            margin: 0;
+            padding: 0;
+            display: flex;
+        }
+
+        .nav-item {
+            margin: 0 10px;
+        }
+
+
+        /* Media query cho mobile */
+        @media (max-width: 767px) {
+            .nav-links {
+                display: none;
+                /* Ẩn nav-links trên mobile */
+            }
+
+            .menu-toggle {
+                display: block;
+                /* Hiển thị toggle button trên mobile */
+            }
+
+            .nav-links.active {
+                display: flex;
+                flex-direction: column;
+                position: absolute;
+                top: 100%;
+                right: 0;
+                width: 200px;
+                background: white;
+                padding: 1rem;
+                box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+                border: 1px solid rgba(0, 0, 0, 0.2);
+                border-radius: 12px;
+                z-index: 1001;
+            }
+
+            .nav-links.active a {
+                padding: 0.5rem 1rem;
+                margin: 0.5rem 0;
+            }
+        }
+
+        body {
+            background: #f5f5f5;
+            color: #333;
+            line-height: 1.6;
+            padding: 1rem;
+        }
+
+        @media (min-width: 768px) {
+            body {
+                padding: 2rem;
+            }
+        }
+
+        .container {
+            max-width: 1500px;
+            margin: 0 auto;
+            background: white;
+            border-radius: 16px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            padding: 1rem;
+        }
+
+        @media (min-width: 768px) {
+            .container {
+                padding: 2rem;
+            }
+        }
+
+        h1 {
+            color: #1a73e8;
+            font-size: 1.5rem;
+            margin-bottom: 1rem;
+            font-weight: 600;
+            text-align: center;
+        }
+
+        @media (min-width: 768px) {
+            h1 {
+                font-size: 1.8rem;
+                margin-bottom: 1.5rem;
+                text-align: left;
+            }
+        }
+
+        .input-section {
+            margin-bottom: 1.5rem;
+        }
+
+        .checkbox-wrapper {
+            margin-bottom: 1rem;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            font-size: 0.9rem;
+        }
+
+        .checkbox-wrapper input[type="checkbox"] {
+            width: 16px;
+            height: 16px;
+            cursor: pointer;
+        }
+
+        textarea {
+            width: 100%;
+            min-height: 100px;
+            padding: 0.75rem;
+            border: 2px solid #e0e0e0;
+            border-radius: 8px;
+            font-size: 0.9rem;
+            resize: vertical;
+            transition: border-color 0.2s;
+            margin-bottom: 1rem;
+        }
+
+        @media (min-width: 768px) {
+            textarea {
+                min-height: 120px;
+                padding: 1rem;
+            }
+        }
+
+        textarea:focus {
+            outline: none;
+            border-color: #1a73e8;
+        }
+
+        .button-group {
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 0.5rem;
+        }
+
+        @media (min-width: 768px) {
+            .button-group {
+                display: flex;
+                gap: 1rem;
+                flex-wrap: wrap;
+            }
+        }
+
+        button {
+            padding: 0.75rem 1rem;
+            border: none;
+            border-radius: 8px;
+            font-weight: 500;
+            cursor: pointer;
+            transition: all 0.2s;
+            font-size: 0.9rem;
+            width: 100%;
+        }
+
+        @media (min-width: 768px) {
+            button {
+                width: auto;
+                padding: 0.75rem 1.5rem;
+            }
+        }
+
+        .check-btn {
+            background: #1a73e8;
+            color: white;
+        }
+
+        .check-btn:hover {
+            background: #1557b0;
+        }
+
+        .filter-btn {
+            background: #34a853;
+            color: white;
+        }
+
+        .filter-btn:hover {
+            background: #2d8544;
+        }
+
+        .clear-btn {
+            background: #ea4335;
+            color: white;
+        }
+
+        .clear-btn:hover {
+            background: #d33426;
+        }
+
+        .results-section {
+            margin-top: 1.5rem;
+        }
+
+        .results-grid {
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 1rem;
+        }
+
+        @media (min-width: 768px) {
+            .results-grid {
+                grid-template-columns: repeat(2, 1fr);
+                gap: 1.5rem;
+            }
+        }
+
+        .result-box {
+            background: #f8f9fa;
+            padding: 1rem;
+            border-radius: 8px;
+        }
+
+        .result-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 0.5rem;
+            flex-wrap: wrap;
+            gap: 0.5rem;
+        }
+
+        .result-title {
+            font-weight: 600;
+            color: #555;
+            font-size: 0.9rem;
+        }
+
+        @media (min-width: 768px) {
+            .result-title {
+                font-size: 1rem;
+            }
+        }
+
+        .count {
+            font-weight: 600;
+            padding: 0.25rem 0.75rem;
+            border-radius: 12px;
+            font-size: 0.8rem;
+        }
+
+        @media (min-width: 768px) {
+            .count {
+                font-size: 0.9rem;
+            }
+        }
+
+        .live-count {
+            background: #e6f4ea;
+            color: #34a853;
+        }
+
+        .dead-count {
+            background: #fce8e6;
+            color: #ea4335;
+        }
+
+        .result-content {
+            background: white;
+            border: 1px solid #e0e0e0;
+            border-radius: 6px;
+            padding: 0.5rem;
+            min-height: 80px;
+            font-size: 0.9rem;
+            color: #666;
+        }
+
+        @media (min-width: 768px) {
+            .result-content {
+                min-height: 100px;
+            }
+        }
+
+        .copy-btn {
+            background: #666;
+            color: white;
+            padding: 0.4rem 0.8rem;
+            font-size: 0.8rem;
+            margin-left: 0.5rem;
+        }
+
+        .copy-btn:hover {
+            background: #555;
+        }
+
+        .copied {
+            background: #34a853;
+        }
+
+        .header-buttons {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+    </style>
+</head>
+
+<body>
+    <nav class="navbar">
+        <div class="nav-container">
+            <!-- Chữ bên trái -->
+            <div class="nav-brand">
+                Ducky
+            </div>
+            <!-- Menu icon (hiển thị trên điện thoại) -->
+            <button class="menu-toggle" id="menuToggle" aria-label="Toggle navigation">
+                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                    stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="menu-icon">
+                    <line x1="3" y1="6" x2="21" y2="6"></line>
+                    <line x1="3" y1="12" x2="21" y2="12"></line>
+                    <line x1="3" y1="18" x2="21" y2="18"></line>
+                </svg>
+            </button>
+            <!-- Liên kết điều hướng -->
+            <div class="nav-links" id="navLinks">
+                <a href="#home">Home</a>
+                <a href="https://www.whatismy2fa.com/">Whatismy2fa.com</a>
+                <a href="#contact">Contact</a>
+            </div>
+        </div>
+    </nav>
+    <div class="container">
+        <h1>Check Live Facebook UID </h1>
+
+        <div class="input-section">
+
+            <textarea id="uids" placeholder="Enter UIDs here (one per line)..."></textarea>
+            <div class="checkbox-wrapper">
+                <input type="checkbox" id="removeDuplicates" checked>
+                <label for="removeDuplicates">Remove duplicate UIDs</label>
+            </div>
+            <div class="button-group">
+                <button class="check-btn" id="checkBtn">Check Status</button>
+                <button class="filter-btn" id="filterBtn">Filter UIDs</button>
+                <button class="clear-btn" id="clearBtn">Clear All</button>
+            </div>
+
+        </div>
+
+        <div class="results-section">
+            <div class="results-grid">
+                <div class="result-box">
+                    <div class="result-header">
+                        <span class="result-title">Live UIDs</span>
+                        <div class="header-buttons">
+                            <span class="count live-count" id="liveCount">0</span>
+                            <button class="copy-btn" id="copyLive">Copy</button>
+                        </div>
+                    </div>
+                    <textarea class="result-content" id="liveUids" readonly></textarea>
+                </div>
+
+                <div class="result-box">
+                    <div class="result-header">
+                        <span class="result-title">Dead UIDs</span>
+                        <div class="header-buttons">
+                            <span class="count dead-count" id="deadCount">0</span>
+                            <button class="copy-btn" id="copyDead">Copy</button>
+                        </div>
+                    </div>
+                    <textarea class="result-content" id="deadUids" readonly></textarea>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        const checkBtn = document.getElementById('checkBtn');
+        const filterBtn = document.getElementById('filterBtn');
+        const clearBtn = document.getElementById('clearBtn');
+        const uidsInput = document.getElementById('uids');
+        const liveUids = document.getElementById('liveUids');
+        const deadUids = document.getElementById('deadUids');
+        const liveCount = document.getElementById('liveCount');
+        const deadCount = document.getElementById('deadCount');
+        const removeDuplicates = document.getElementById('removeDuplicates');
+        const copyLive = document.getElementById('copyLive');
+        const copyDead = document.getElementById('copyDead');
+
+        function removeDuplicateUIDs(uids) {
+            return [...new Set(uids)];
+        }
+
+        async function copyToClipboard(text, button) {
+            try {
+                await navigator.clipboard.writeText(text);
+                button.textContent = 'Copied!';
+                button.classList.add('copied');
+                setTimeout(() => {
+                    button.textContent = 'Copy';
+                    button.classList.remove('copied');
+                }, 2000);
+            } catch (err) {
+                console.error('Failed to copy:', err);
+            }
+        }
+
+        copyLive.addEventListener('click', () => copyToClipboard(liveUids.value, copyLive));
+        copyDead.addEventListener('click', () => copyToClipboard(deadUids.value, copyDead));
+
+        checkBtn.addEventListener('click', async function () {
+            try {
+                let uids = uidsInput.value;
+                if (removeDuplicates.checked) {
+                    uids = removeDuplicateUIDs(uids.split('\n')).join('\n');
+                }
+
+                const response = await fetch('/check', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                    body: JSON.stringify({ uids })
+                });
+
+                const data = await response.json();
+
+                if (data.error) {
+                    alert(data.error);
+                    return;
+                }
+
+                liveCount.textContent = data.live_count;
+                deadCount.textContent = data.die_count;
+                liveUids.value = data.live_uids.join('\n');
+                deadUids.value = data.die_uids.join('\n');
+            } catch (error) {
+                console.error('Error:', error);
+                alert('An error occurred while processing your request.');
+            }
+        });
+
+        filterBtn.addEventListener('click', function () {
+            let uids = uidsInput.value.split(/[\s,|]+/)
+                .filter(uid => /^[0-9]{10,15}$/.test(uid.trim()));
+
+            if (removeDuplicates.checked) {
+                uids = removeDuplicateUIDs(uids);
+            }
+
+            uidsInput.value = uids.join('\n');
+        });
+
+        clearBtn.addEventListener('click', function () {
+            uidsInput.value = '';
+            liveUids.value = '';
+            deadUids.value = '';
+            liveCount.textContent = '0';
+            deadCount.textContent = '0';
+        });
+
+
+        const menuToggle = document.getElementById('menuToggle');
+        const navLinks = document.getElementById('navLinks');
+
+        menuToggle.addEventListener('click', () => {
+            navLinks.classList.toggle('active');
+        });
+    </script>
+</body>
+
+</html>
